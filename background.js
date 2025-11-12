@@ -6,13 +6,13 @@ console.log('[Tiger Prompts BG] 🚀 Service worker initializing...');
 // ========== FIREBASE AUTH CONFIGURATION ==========
 
 const FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyA1DRr3LRrkAwD_gjArlxEC8ir6vJwC9jk', // Replace with your actual Firebase API key
+  apiKey: '', // Replace with your actual Firebase API key
   projectId: 'tiger-prompts',
   functionsUrl: 'https://us-central1-tiger-prompts.cloudfunctions.net'
 };
 
 // Validate API key on startup
-if (FIREBASE_CONFIG.apiKey === 'AIzaSyA1DRr3LRrkAwD_gjArlxEC8ir6vJwC9jk') {
+if (FIREBASE_CONFIG.apiKey === '') {
   console.error('❌ [Tiger Prompts] FIREBASE API KEY NOT SET! Replace placeholder in background.js line 10');
   console.error('❌ [Tiger Prompts] Get your key from: Firebase Console > Project Settings > Web API Key');
 }

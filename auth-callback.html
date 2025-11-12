@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Prompts - Authentication</title>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      text-align: center;
+      max-width: 400px;
+    }
+    .icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: #FF7A00;
+    }
+    p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 24px;
+    }
+    .status {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">🐯</div>
+    <h1>Authentication Complete</h1>
+    <p>Processing your authentication...</p>
+    <div class="status" id="status">Please wait...</div>
+  </div>
+
+  <script>
+    // Parse URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const error = urlParams.get('error');
+    
+    const statusEl = document.getElementById('status');
+    
+    if (error) {
+      statusEl.textContent = `Error: ${error}`;
+      statusEl.style.background = 'rgba(255, 0, 0, 0.2)';
+      statusEl.style.borderLeft = '3px solid #ff0000';
+    } else if (token) {
+      // Send token to background script or content script
+      chrome.runtime.sendMessage({
+        type: 'AUTH_TOKEN',
+        token: token
+      }, (response) => {
+        if (response && response.success) {
+          statusEl.textContent = '✅ Authentication successful! You can close this tab.';
+          statusEl.style.background = 'rgba(0, 255, 100, 0.2)';
+          statusEl.style.borderLeft = '3px solid #00ff64';
+          
+          // Auto-close after 2 seconds
+          setTimeout(() => {
+            window.close();
+          }, 2000);
+        } else {
+          statusEl.textContent = '❌ Failed to save authentication. Please try again.';
+          statusEl.style.background = 'rgba(255, 0, 0, 0.2)';
+          statusEl.style.borderLeft = '3px solid #ff0000';
+        }
+      });
+    } else {
+      statusEl.textContent = '❌ No authentication token found.';
+      statusEl.style.background = 'rgba(255, 0, 0, 0.2)';
+      statusEl.style.borderLeft = '3px solid #ff0000';
+    }
+  </script>
+</body>
+</html>

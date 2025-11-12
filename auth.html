@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Prompts - Sign In</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .auth-container {
+      background: #1E1E1E;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      max-width: 450px;
+      width: 100%;
+    }
+
+    /* Header with Tiger Stripes */
+    .header {
+      background: 
+        repeating-linear-gradient(
+          -30deg,
+          transparent 0px,
+          transparent 15px,
+          rgba(0,0,0,0.2) 15px,
+          rgba(0,0,0,0.2) 18px,
+          transparent 18px,
+          transparent 25px,
+          rgba(0,0,0,0.25) 25px,
+          rgba(0,0,0,0.25) 30px
+        ),
+        linear-gradient(135deg, #FF7A00 0%, #FF9940 100%);
+      padding: 30px;
+      text-align: center;
+      border-bottom: 3px solid #FF7A00;
+    }
+
+    .logo {
+      height: 60px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      margin-bottom: 4px;
+    }
+
+    .header .subtitle {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Content */
+    .content {
+      padding: 32px;
+    }
+
+    .tab-switcher {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #FF7A00 0%, #FF9940 100%);
+      color: white;
+    }
+
+    .tab-btn:hover:not(.active) {
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .form-section {
+      display: none;
+    }
+
+    .form-section.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      color: white;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: rgba(255, 122, 0, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      padding: 4px;
+      font-size: 18px;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .password-toggle:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #FF7A00 0%, #FF9940 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(255, 122, 0, 0.3);
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 122, 0, 0.5);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-top: 8px;
+    }
+
+    .forgot-password button {
+      background: none;
+      border: none;
+      color: #FF7A00;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
+    }
+
+    .forgot-password button:hover {
+      color: #FF9940;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .pro-upgrade {
+      background: linear-gradient(135deg, rgba(108, 99, 255, 0.15) 0%, rgba(139, 132, 255, 0.1) 100%);
+      border: 2px solid rgba(108, 99, 255, 0.3);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .pro-upgrade h3 {
+      color: #8B84FF;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .pro-upgrade p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .pro-btn {
+      background: linear-gradient(135deg, #6C63FF 0%, #8B84FF 100%);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pro-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4);
+    }
+
+    .oauth-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .oauth-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 14px 20px;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .oauth-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    }
+
+    .oauth-btn:active {
+      transform: translateY(0);
+    }
+
+    .oauth-btn svg {
+      flex-shrink: 0;
+    }
+
+    .google-btn:hover {
+      border-color: rgba(66, 133, 244, 0.5);
+      box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
+    }
+
+    .facebook-btn:hover {
+      border-color: rgba(66, 103, 178, 0.5);
+      box-shadow: 0 4px 12px rgba(66, 103, 178, 0.2);
+    }
+
+    .error-message {
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      color: #ff6b6b;
+      font-size: 13px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .success-message {
+      background: rgba(0, 255, 100, 0.1);
+      border: 1px solid rgba(0, 255, 100, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      color: #00ff64;
+      font-size: 13px;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+    }
+
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 122, 0, 0.3);
+      border-top-color: #FF7A00;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .footer {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 16px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer p {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer a {
+      color: #FF7A00;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="header">
+      <img src="tiger.png" alt="Tiger Prompts" class="logo">
+      <h1>Tiger Prompts</h1>
+      <div class="subtitle">Sign In to Continue</div>
+    </div>
+
+    <div class="content">
+      <div class="tab-switcher">
+        <button class="tab-btn active" data-tab="signin">Sign In</button>
+        <button class="tab-btn" data-tab="signup">Sign Up</button>
+      </div>
+
+      <div class="error-message" id="errorMessage"></div>
+      <div class="success-message" id="successMessage"></div>
+
+      <!-- Sign In Form -->
+      <div class="form-section active" id="signinSection">
+        <form id="signinForm">
+          <div class="form-group">
+            <label class="form-label" for="signinEmail">Email</label>
+            <input
+              type="email"
+              id="signinEmail"
+              class="form-input"
+              placeholder="your@email.com"
+              required
+              autocomplete="email"
+            >
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signinPassword">Password</label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="signinPassword"
+                class="form-input"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password"
+              >
+              <button type="button" class="password-toggle" data-target="signinPassword">
+                👁️
+              </button>
+            </div>
+          </div>
+          <div class="forgot-password">
+            <button type="button" id="forgotPasswordBtn">Forgot password?</button>
+          </div>
+          <button type="submit" class="submit-btn" id="signinBtn">
+            Sign In
+          </button>
+        </form>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div class="form-section" id="signupSection">
+        <form id="signupForm">
+          <div class="form-group">
+            <label class="form-label" for="signupEmail">Email</label>
+            <input
+              type="email"
+              id="signupEmail"
+              class="form-input"
+              placeholder="your@email.com"
+              required
+              autocomplete="email"
+            >
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupPassword">Password</label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="signupPassword"
+                class="form-input"
+                placeholder="At least 6 characters"
+                required
+                autocomplete="new-password"
+                minlength="6"
+              >
+              <button type="button" class="password-toggle" data-target="signupPassword">
+                👁️
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupPasswordConfirm">Confirm Password</label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="signupPasswordConfirm"
+                class="form-input"
+                placeholder="Re-enter password"
+                required
+                autocomplete="new-password"
+                minlength="6"
+              >
+              <button type="button" class="password-toggle" data-target="signupPasswordConfirm">
+                👁️
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" id="signupBtn">
+            Create Account
+          </button>
+        </form>
+      </div>
+
+      <div class="divider">Or continue with</div>
+
+      <!-- OAuth Buttons -->
+      <div class="oauth-buttons">
+        <button class="oauth-btn google-btn" id="googleSignIn">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+            <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
+            <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+            <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.002 0 5.485 0 2.44 2.017.96 4.958L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+        
+        <button class="oauth-btn facebook-btn" id="facebookSignIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span>Continue with Facebook</span>
+        </button>
+      </div>
+
+      <div class="divider" style="margin-top: 24px;">Or upgrade to Pro</div>
+
+      <div class="pro-upgrade">
+        <h3>🚀 Tiger Prompts Pro</h3>
+        <p>Unlock unlimited enhancements, advanced presets, priority support, and more!</p>
+        <button class="pro-btn" id="upgradeBtn">Upgrade to Pro</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>By signing in, you agree to our <a href="https://tigerprompts.com/terms" target="_blank">Terms</a> and <a href="https://tigerprompts.com/privacy" target="_blank">Privacy Policy</a></p>
+      <p style="margin-top: 8px;">Visit <a href="https://tigerprompts.com" target="_blank">tigerprompts.com</a> for more info</p>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>

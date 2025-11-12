@@ -1,0 +1,20 @@
+/* Tiger Prompts v8 - Page Styles */
+
+/* Push page content left on desktop */
+@media (min-width: 769px) {
+  html {
+    margin-right: 285px !important;
+    transition: margin-right 0.3s ease !important;
+  }
+  
+  html.tp-collapsed {
+    margin-right: 40px !important;
+  }
+}
+
+/* Hide sidebar on mobile */
+@media (max-width: 768px) {
+  #tp-dock-root {
+    display: none !important;
+  }
+}

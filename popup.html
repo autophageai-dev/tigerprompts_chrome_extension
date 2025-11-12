@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Prompts</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1E1E1E 0%, #141414 100%);
+      color: #ffffff;
+    }
+
+    /* Header with Tiger Stripes */
+    .header {
+      background: 
+        repeating-linear-gradient(
+          -30deg,
+          transparent 0px,
+          transparent 15px,
+          rgba(0,0,0,0.2) 15px,
+          rgba(0,0,0,0.2) 18px,
+          transparent 18px,
+          transparent 25px,
+          rgba(0,0,0,0.25) 25px,
+          rgba(0,0,0,0.25) 30px
+        ),
+        linear-gradient(135deg, #FF7A00 0%, #FF9940 100%);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #FF7A00;
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 12px;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      margin-bottom: 4px;
+    }
+
+    .version {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 600;
+    }
+
+    /* Content */
+    .content {
+      padding: 20px;
+    }
+
+    .status {
+      background: rgba(255, 122, 0, 0.1);
+      border-left: 3px solid #FF7A00;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+
+    .status-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FF7A00;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-text {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.5;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      color: white;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 122, 0, 0.15);
+      border-color: rgba(255, 122, 0, 0.3);
+      transform: translateX(4px);
+    }
+
+    .action-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .action-content {
+      flex: 1;
+    }
+
+    .action-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .action-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 12px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-link {
+      color: #FF7A00;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+
+    .footer-link:hover {
+      opacity: 0.8;
+    }
+
+    .supported-sites {
+      margin-top: 16px;
+    }
+
+    .sites-title {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .sites-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .site-badge {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="tiger.png" alt="Tiger Prompts">
+    </div>
+    <h1>Tiger Prompts</h1>
+    <div class="version">v2.0.0</div>
+  </div>
+
+  <div class="content">
+    <div class="status">
+      <div class="status-title">🟢 Extension Active</div>
+      <div class="status-text">Visit any supported AI platform to start enhancing your prompts!</div>
+    </div>
+
+    <div class="quick-actions">
+      <button class="action-btn" id="openChatGPT">
+        <span class="action-icon">💬</span>
+        <div class="action-content">
+          <div class="action-title">Open ChatGPT</div>
+          <div class="action-desc">Start prompting with OpenAI</div>
+        </div>
+      </button>
+
+      <button class="action-btn" id="openClaude">
+        <span class="action-icon">🤖</span>
+        <div class="action-content">
+          <div class="action-title">Open Claude</div>
+          <div class="action-desc">Chat with Anthropic's AI</div>
+        </div>
+      </button>
+
+      <button class="action-btn" id="openGemini">
+        <span class="action-icon">✨</span>
+        <div class="action-content">
+          <div class="action-title">Open Gemini</div>
+          <div class="action-desc">Try Google's AI</div>
+        </div>
+      </button>
+    </div>
+
+    <div class="supported-sites">
+      <div class="sites-title">Supported Platforms</div>
+      <div class="sites-grid">
+        <div class="site-badge">ChatGPT</div>
+        <div class="site-badge">Claude</div>
+        <div class="site-badge">Gemini</div>
+        <div class="site-badge">Perplexity</div>
+        <div class="site-badge">Poe</div>
+        <div class="site-badge">You.com</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://tigerprompts.com" target="_blank" class="footer-link">
+      🌐 tigerprompts.com
+    </a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

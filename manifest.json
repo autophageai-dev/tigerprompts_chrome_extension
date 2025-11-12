@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "Tiger Prompts — Agentic Prompt Engineering Suite",
+  "version": "2.0.0",
+  "description": "AI-Native Prompting & Vibe Coding Tools. Massive templates, save/inject chats, track tokens for ChatGPT, Claude & Gemini.",
+  "author": "Autophage AI",
+  "homepage_url": "https://tigerprompts.com",
+  "permissions": ["storage", "scripting"],
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://poe.com/*",
+    "https://perplexity.ai/*",
+    "https://www.perplexity.ai/*",
+    "https://you.com/*",
+    "https://tigerprompts-proxy.autophageai.workers.dev/*",
+    "https://autophagelabs.dev/*",
+    "https://identitytoolkit.googleapis.com/*",
+    "https://securetoken.googleapis.com/*",
+    "https://us-central1-tiger-prompts.cloudfunctions.net/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon-16.png",
+      "32": "icon-32.png",
+      "48": "icon-48.png",
+      "128": "icon-128.png"
+    },
+    "default_title": "Tiger Prompts — AI Enhancement Layer"
+  },
+  "icons": {
+    "16": "icon-16.png",
+    "32": "icon-32.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://poe.com/*",
+        "https://perplexity.ai/*",
+        "https://www.perplexity.ai/*",
+        "https://you.com/*"
+      ],
+      "js": ["prompt-library.js", "content.js"],
+      "css": ["content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["*.png", "*.js", "*.html", "*.css", "chatgpt-logo.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
